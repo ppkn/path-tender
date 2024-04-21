@@ -35,10 +35,10 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: production-files
-          path: /
+          path: /public
       - uses: cloudflare/pages-action@v1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: bd101f47da542c629e5279583116fea9
           projectName: path-tender
-          directory: /
+          directory: /public
