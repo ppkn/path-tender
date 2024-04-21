@@ -8,6 +8,7 @@ export const clientLoader = async () => {
     }),
   };
 };
+
 export default function AppIndex() {
   const { entries } = useLoaderData<typeof clientLoader>();
   return entries.length ? (
@@ -42,7 +43,6 @@ export default function AppIndex() {
             >
               {entry.notes}
             </div>
-            {/* <pre>{JSON.stringify(entry, null, 2)}</pre> */}
           </article>
         </Link>
       );
