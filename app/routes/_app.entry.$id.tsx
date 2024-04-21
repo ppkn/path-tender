@@ -11,5 +11,5 @@ export const clientLoader = async ({ params }: ClientLoaderFunctionArgs) => {
 
 export default function ShowEntry() {
   const { entry } = useLoaderData<typeof clientLoader>();
-  return <p>{JSON.stringify(entry)}</p>;
+  return <pre>{JSON.stringify(entry, null, 2)}</pre>;
 }
