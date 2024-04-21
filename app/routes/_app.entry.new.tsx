@@ -10,7 +10,7 @@ export const clientAction = async ({ request }: ClientActionFunctionArgs) => {
   invariant(photo instanceof File, "photo must be a file");
 
   const { latitude, longitude } = await exifr.gps(photo);
-  const entry = await pb.collection("entries").create({
+  await pb.collection("entries").create({
     isPublished: publish == "on",
     latitude,
     longitude,
@@ -18,7 +18,7 @@ export const clientAction = async ({ request }: ClientActionFunctionArgs) => {
     photo,
     user: pb.authStore.model?.id,
   });
-  return redirect(`/entry/${entry.id}`);
+  return redirect("/");
 };
 
 export default function NewEntry() {
