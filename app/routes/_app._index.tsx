@@ -6,7 +6,7 @@ export const clientLoader = async () => {
 };
 export default function AppIndex() {
   const { entries } = useLoaderData<typeof clientLoader>();
-  return (
+  return entries.length ? (
     <ul>
       {entries.map((entry) => (
         <li key={entry.id}>
@@ -14,5 +14,7 @@ export default function AppIndex() {
         </li>
       ))}
     </ul>
+  ) : (
+    <Link to={"/entry/new"}>Create your first entry</Link>
   );
 }
