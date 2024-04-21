@@ -36,7 +36,7 @@ export type AuthSystemFields<T = never> = {
 
 export type EntriesRecord = {
 	isPublished?: boolean
-	notes: string
+	notes?: string
 	user: RecordIdString
 }
 
