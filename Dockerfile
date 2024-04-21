@@ -10,7 +10,7 @@ ADD https://github.com/pocketbase/pocketbase/releases/download/v${PB_VERSION}/po
 RUN unzip /tmp/pb.zip -d /pb/
 
 # uncomment once we have pb_migrations to copy
-# COPY ./db/pb_migrations /pb/pb_migrations
+COPY ./db/pb_migrations /pb/pb_migrations
 
 EXPOSE 8080
 
