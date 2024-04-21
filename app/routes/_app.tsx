@@ -26,7 +26,7 @@ export default function AppLayout() {
         <nav>
           <ul>
             <li>
-              <Link to="/log/new">New</Link>
+              <Link to="/entry/new">New</Link>
             </li>
           </ul>
           <ul>
