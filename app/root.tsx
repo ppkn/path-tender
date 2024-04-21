@@ -7,6 +7,7 @@ import {
 } from "@remix-run/react";
 
 import "./index.scss";
+import { PocketProvider } from "./contexts/PocketContext";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -28,7 +29,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <PocketProvider>
+      <Outlet />
+    </PocketProvider>
+  );
 }
 
 export function HydrateFallback() {
