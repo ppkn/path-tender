@@ -1,7 +1,6 @@
 import { type MetaFunction } from "@remix-run/node";
-import { useNavigate } from "@remix-run/react";
+import { Form, useLoaderData, useNavigate } from "@remix-run/react";
 import { useEffect } from "react";
-import { usePocket } from "~/contexts/PocketContext";
 import { pb } from "~/pocketbase";
 
 export const meta: MetaFunction = () => {
@@ -11,9 +10,21 @@ export const meta: MetaFunction = () => {
   ];
 };
 
+export const clientLoader = async () => {
+  return {
+    isValid: pb.authStore.isValid,
+    user: pb.authStore.model,
+  };
+};
+
+export const clientAction = async () => {
+  pb.authStore.clear();
+  return null;
+};
+
 export default function Index() {
   const navigate = useNavigate();
-  const { isValid, user } = usePocket();
+  const { isValid, user } = useLoaderData<typeof clientLoader>();
 
   useEffect(() => {
     if (!isValid) {
@@ -22,10 +33,6 @@ export default function Index() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isValid]);
 
-  const handleLogout = () => {
-    pb.authStore.clear();
-  };
-
   return (
     <>
       <main>Hello {user?.name}</main>
@@ -33,7 +40,9 @@ export default function Index() {
         <nav>
           <ul>
             <li>
-              <button onClick={handleLogout}>Logout</button>
+              <Form method="post">
+                <button type="submit">Logout</button>
+              </Form>
             </li>
           </ul>
         </nav>
