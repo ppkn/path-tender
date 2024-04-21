@@ -23,19 +23,17 @@ export const clientAction = async ({ request }: ClientActionFunctionArgs) => {
 
 export default function NewEntry() {
   return (
-    <article>
-      <Form encType="multipart/form-data" method="post">
-        <label>
-          Photo
-          <input type="file" name="photo" />
-        </label>
-        <textarea name="notes" placeholder="Notes" />
-        <label>
-          <input type="checkbox" name="publish" role="switch" />
-          Publish
-        </label>
-        <input type="submit" value="Save" />
-      </Form>
-    </article>
+    <Form encType="multipart/form-data" method="post">
+      <label>
+        Photo
+        <input type="file" name="photo" />
+      </label>
+      <textarea name="notes" placeholder="Notes" />
+      <label>
+        <input type="checkbox" name="publish" role="switch" />
+        Publish
+      </label>
+      <input type="submit" value="Save" />
+    </Form>
   );
 }
