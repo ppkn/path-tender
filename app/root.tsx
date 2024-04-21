@@ -18,7 +18,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <link rel="icon" type="image/svg+xml" href="/compass.svg" />
         <Links />
       </head>
-      <body>
+      <body
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          height: "100vh",
+        }}
+      >
         {children}
         <ScrollRestoration />
         <Scripts />

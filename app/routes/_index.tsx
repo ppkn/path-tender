@@ -28,8 +28,18 @@ export default function Index() {
 
   return (
     <>
-      <main>Hello {user?.name}</main>
-      <footer>
+      <main
+        style={{
+          flex: 1,
+        }}
+      >
+        Hello {user?.name}
+      </main>
+      <footer
+        style={{
+          flex: 0,
+        }}
+      >
         <nav>
           <ul>
             <li>
