@@ -1,15 +1,10 @@
-import {
-  ClientActionFunctionArgs,
-  Form,
-  useLoaderData,
-  useNavigate,
-} from "@remix-run/react";
-import { useEffect } from "react";
+import { ClientActionFunctionArgs, Form, redirect } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { pb } from "~/pocketbase";
 
 export const clientLoader = async () => {
-  return { isValid: pb.authStore.isValid };
+  const isValid = pb.authStore.isValid;
+  return isValid ? redirect("/") : null;
 };
 
 export const clientAction = async ({ request }: ClientActionFunctionArgs) => {
@@ -25,13 +20,6 @@ export const clientAction = async ({ request }: ClientActionFunctionArgs) => {
 };
 
 export default function Login() {
-  const navigate = useNavigate();
-  const { isValid } = useLoaderData<typeof clientLoader>();
-
-  useEffect(() => {
-    if (isValid) navigate("/");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isValid]);
   return (
     <>
       <header>

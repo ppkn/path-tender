@@ -1,6 +1,5 @@
 import { type MetaFunction } from "@remix-run/node";
-import { Form, useLoaderData, useNavigate } from "@remix-run/react";
-import { useEffect } from "react";
+import { Form, redirect, useLoaderData } from "@remix-run/react";
 import { pb } from "~/pocketbase";
 
 export const meta: MetaFunction = () => {
@@ -11,8 +10,10 @@ export const meta: MetaFunction = () => {
 };
 
 export const clientLoader = async () => {
+  const isValid = pb.authStore.isValid;
+  if (!isValid) return redirect("/login");
+
   return {
-    isValid: pb.authStore.isValid,
     user: pb.authStore.model,
   };
 };
@@ -23,15 +24,7 @@ export const clientAction = async () => {
 };
 
 export default function Index() {
-  const navigate = useNavigate();
-  const { isValid, user } = useLoaderData<typeof clientLoader>();
-
-  useEffect(() => {
-    if (!isValid) {
-      navigate("/login");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isValid]);
+  const { user } = useLoaderData<typeof clientLoader>();
 
   return (
     <>
