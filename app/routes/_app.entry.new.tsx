@@ -6,12 +6,12 @@ export const clientAction = async ({ request }: ClientActionFunctionArgs) => {
   const formData = await request.formData();
   const { notes, publish } = Object.fromEntries(formData);
   invariant(typeof notes === "string", "notes needs to be a string");
-  await pb.collection("entries").create({
+  const entry = await pb.collection("entries").create({
     notes,
     isPublished: publish == "on",
     user: pb.authStore.model?.id,
   });
-  return redirect("/");
+  return redirect(`/entry/${entry.id}`);
 };
 
 export default function NewEntry() {
