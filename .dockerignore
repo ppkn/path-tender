@@ -1,0 +1,11 @@
+# flyctl launch added from .gitignore
+**/node_modules
+
+.cache
+build
+public/build
+**/.env
+
+**/pocketbase
+**/pb_data
+fly.toml
