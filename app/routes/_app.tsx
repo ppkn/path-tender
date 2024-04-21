@@ -1,6 +1,5 @@
 import { type MetaFunction } from "@remix-run/node";
-import { Form, redirect, useLoaderData } from "@remix-run/react";
-import { pb } from "~/pocketbase";
+import { Form, Link, Outlet } from "@remix-run/react";
 
 export const meta: MetaFunction = () => {
   return [
@@ -9,23 +8,7 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export const clientLoader = async () => {
-  const isValid = pb.authStore.isValid;
-  if (!isValid) return redirect("/login");
-
-  return {
-    user: pb.authStore.model,
-  };
-};
-
-export const clientAction = async () => {
-  pb.authStore.clear();
-  return null;
-};
-
-export default function Index() {
-  const { user } = useLoaderData<typeof clientLoader>();
-
+export default function AppLayout() {
   return (
     <>
       <main
@@ -33,7 +16,7 @@ export default function Index() {
           flex: 1,
         }}
       >
-        Hello {user?.name}
+        <Outlet />
       </main>
       <footer
         style={{
@@ -43,7 +26,17 @@ export default function Index() {
         <nav>
           <ul>
             <li>
-              <Form method="post">
+              <Link to="/log/new">New</Link>
+            </li>
+          </ul>
+          <ul>
+            <li>
+              {/*
+              I would love to put an action in this route, but it looks like we can't do
+              that with "pathless" routes
+              https://github.com/remix-run/remix/discussions/7708#discussioncomment-8162531
+              */}
+              <Form method="post" action="/logout">
                 <button type="submit">Logout</button>
               </Form>
             </li>
