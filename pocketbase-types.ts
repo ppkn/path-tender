@@ -36,7 +36,10 @@ export type AuthSystemFields<T = never> = {
 
 export type EntriesRecord = {
 	isPublished?: boolean
+	latitude?: number
+	longitude?: number
 	notes?: string
+	photo?: string
 	user: RecordIdString
 }
 
