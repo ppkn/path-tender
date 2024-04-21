@@ -1,0 +1,44 @@
+name: Deploy Static Site
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  POCKETBASE_URL: https://path-tender-db.fly.dev
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      - uses: bahmutov/npm-install@v1
+      - run: npm run build
+        env:
+          VITE_POCKETBASE_URL: ${{ env.POCKETBASE_URL }}
+      - uses: actions/upload-artifact@v3
+        with:
+          name: production-files
+          path: ./build/client
+
+  deploy:
+    name: Deploy to Cloudflare Pages
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: production-files
+          path: /
+      - uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: bd101f47da542c629e5279583116fea9
+          projectName: path-tender
+          directory: /
