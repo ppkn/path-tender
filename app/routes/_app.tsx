@@ -14,6 +14,7 @@ export default function AppLayout() {
       <main
         style={{
           flex: 1,
+          overflowY: "scroll",
         }}
       >
         <Outlet />
