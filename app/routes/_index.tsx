@@ -28,9 +28,6 @@ export default function Index() {
 
   return (
     <>
-      <header>
-        <h1>Path Tender 🌱🚶🚴</h1>
-      </header>
       <main>Hello {user?.name}</main>
       <footer>
         <nav>
