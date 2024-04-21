@@ -1,5 +1,5 @@
 # path-tender
-[Path Tender](path-tender.pages.dev) is an app for logging active transportation improvements in your community.
+[Path Tender](https://path-tender.pages.dev/) is an app for logging active transportation improvements in your community.
 
 ## Development
 ```shellscript
