@@ -1,13 +1,10 @@
 # path-tender
-
-Path Tender is an app for logging active transportation improvements in your community.
+[Path Tender](path-tender.pages.dev) is an app for logging active transportation improvements in your community.
 
 ## Development
 ```shellscript
 npm run dev
 ```
 
-## Production
-```shellscript
-npm run build
-```
+## Deploy
+The backend/frontend deploys happen automatically on push to `main`.
