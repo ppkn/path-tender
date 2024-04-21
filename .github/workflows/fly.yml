@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - "db/pb_migrations"
 jobs:
   deploy:
     name: Depoly PocketBase
