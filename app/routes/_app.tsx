@@ -1,11 +1,16 @@
 import { type MetaFunction } from "@remix-run/node";
-import { Form, Link, Outlet } from "@remix-run/react";
+import { Form, Link, Outlet, redirect } from "@remix-run/react";
+import { pb } from "~/pocketbase";
 
 export const meta: MetaFunction = () => {
   return [
     { title: "Path Tender" },
     { name: "description", content: "Path Tender" },
   ];
+};
+
+export const clientLoader = async () => {
+  return pb.authStore.isValid ? null : redirect("/login");
 };
 
 export default function AppLayout() {
@@ -36,7 +41,7 @@ export default function AppLayout() {
           <ul>
             <li>
               {/*
-              I would love to put an action in this route, but it looks like we can't do
+              I would love to put an action in this (_app.tsx) route, but it looks like we can't do
               that with "pathless" routes
               https://github.com/remix-run/remix/discussions/7708#discussioncomment-8162531
               */}
