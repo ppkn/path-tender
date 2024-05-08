@@ -20,6 +20,7 @@ jobs:
       - run: npm run build
         env:
           VITE_POCKETBASE_URL: ${{ env.POCKETBASE_URL }}
+          VITE_MAPTILER_KEY: ${{ secrets.MAPTILER_KEY }}
       - uses: actions/upload-artifact@v4
         with:
           name: production-files
