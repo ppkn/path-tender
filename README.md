@@ -2,8 +2,12 @@
 [Path Tender](https://path-tender.pages.dev/) is an app for logging active transportation improvements in your community.
 
 ## Development
-```shellscript
+```sh
 npm run dev
+```
+and in a separate terminal
+```sh
+./db/pocketbase serve --dev
 ```
 
 ## Deploy

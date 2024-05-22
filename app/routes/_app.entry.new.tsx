@@ -1,7 +1,11 @@
 import { ClientActionFunctionArgs, Form, redirect } from "@remix-run/react";
+import imageCompression from "browser-image-compression";
 import exifr from "exifr";
+import { ChangeEvent } from "react";
 import invariant from "tiny-invariant";
 import { pb } from "~/pocketbase";
+
+const MAX_PHOTO_SIZE = 5242880;
 
 export const clientAction = async ({ request }: ClientActionFunctionArgs) => {
   const formData = await request.formData();
@@ -22,11 +26,25 @@ export const clientAction = async ({ request }: ClientActionFunctionArgs) => {
 };
 
 export default function NewEntry() {
+  const prepareUpload = async (event: ChangeEvent<HTMLInputElement>) => {
+    const photo = event.target.files?.[0];
+    if (!photo) return;
+    if (photo.size <= MAX_PHOTO_SIZE) return;
+
+    let compressedPhoto = await imageCompression(photo, {
+      maxSizeMB: MAX_PHOTO_SIZE / 1024 / 1024,
+      preserveExif: true,
+    });
+    compressedPhoto = new File([compressedPhoto], photo.name);
+
+    setFileInputFile(event.target, compressedPhoto);
+  };
+
   return (
     <Form encType="multipart/form-data" method="post">
       <label>
         Photo
-        <input type="file" name="photo" />
+        <input type="file" name="photo" onChange={prepareUpload} />
       </label>
       <textarea name="notes" placeholder="Notes" />
       <label>
@@ -37,3 +55,9 @@ export default function NewEntry() {
     </Form>
   );
 }
+
+const setFileInputFile = (fileInput: HTMLInputElement, file: File) => {
+  const dataTransfer = new DataTransfer();
+  dataTransfer.items.add(file);
+  fileInput.files = dataTransfer.files;
+};
