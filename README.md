@@ -5,7 +5,10 @@
 ```sh
 npm run dev
 ```
+
+[Install pocketbase](https://pocketbase.io/docs/) and move the extracted executable to `./db/`
 and in a separate terminal
+
 ```sh
 ./db/pocketbase serve --dev
 ```
