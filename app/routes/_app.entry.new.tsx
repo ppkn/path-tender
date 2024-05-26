@@ -12,8 +12,14 @@ export const clientAction = async ({ request }: ClientActionFunctionArgs) => {
   const { notes, publish, photo } = Object.fromEntries(formData);
   invariant(typeof notes === "string", "notes needs to be a string");
   invariant(photo instanceof File, "photo must be a file");
+  const parsedPhoto = await exifr.gps(photo);
 
-  const { latitude, longitude } = await exifr.gps(photo);
+  if (!parsedPhoto) {
+    alert('Oops! Unable to parse photo location :(')
+    return null
+  }
+
+  const { latitude, longitude } = parsedPhoto
   await pb.collection("entries").create({
     isPublished: publish == "on",
     latitude,
@@ -44,7 +50,7 @@ export default function NewEntry() {
     <Form encType="multipart/form-data" method="post">
       <label>
         Photo
-        <input type="file" name="photo" onChange={prepareUpload} />
+        <input type="file" name="photo" onChange={prepareUpload} accept=".png, .jpg, .jpeg" />
       </label>
       <textarea name="notes" placeholder="Notes" />
       <label>
