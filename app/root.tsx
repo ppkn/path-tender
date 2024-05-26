@@ -4,6 +4,8 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useRouteError,
+  isRouteErrorResponse,
 } from "@remix-run/react";
 
 import "./index.scss";
@@ -39,4 +41,20 @@ export default function App() {
 
 export function HydrateFallback() {
   return <p>Loading...</p>;
+}
+
+export function ErrorBoundary() {
+  const error = useRouteError();
+  return (
+    <main>
+      <h1>
+        {isRouteErrorResponse(error)
+          ? `${error.status} ${error.statusText}`
+          : error instanceof Error
+          ? error.message
+          : "Unknown Error"}
+      </h1>
+      <a href="/">Back Home</a>
+    </main>
+  );
 }

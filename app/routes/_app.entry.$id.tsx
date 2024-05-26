@@ -27,21 +27,24 @@ export default function ShowEntry() {
   const photoUrl = pb.files.getUrl(entry, entry.photo);
 
   return (
-    <div
+    <section
       style={{
         display: "flex",
         flexDirection: "column",
         rowGap: "1em",
       }}
     >
-      <img src={photoUrl} alt="" style={{ borderRadius: "0.5em" }} />
-      <h2>Notes</h2>
-      <p>{entry.notes}</p>
-      <Form method="post">
-        <button className="contrast" type="submit">
-          🗑️ Delete
-        </button>
-      </Form>
-    </div>
+      <figure>
+        <img src={photoUrl} alt="" style={{ borderRadius: "0.5em" }} />
+        <figcaption>Latitude {entry.latitude}</figcaption>
+        <figcaption>Longitude {entry.longitude}</figcaption>
+        { entry.notes && <figcaption>Notes {entry.notes}</figcaption> }
+      </figure>
+        <Form method="post">
+          <button className="contrast" type="submit">
+            🗑️ Delete
+          </button>
+        </Form>
+    </section>
   );
 }
