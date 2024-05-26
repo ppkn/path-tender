@@ -5,8 +5,11 @@ import {
   redirect,
   useLoaderData,
 } from "@remix-run/react";
+import { ClientOnly } from "remix-utils/client-only";
 import invariant from "tiny-invariant";
 import { pb } from "~/pocketbase";
+
+import Map from '~/components/map.client'
 
 export const clientAction = async ({ params }: ClientActionFunctionArgs) => {
   const { id } = params;
@@ -36,15 +39,24 @@ export default function ShowEntry() {
     >
       <figure>
         <img src={photoUrl} alt="" style={{ borderRadius: "0.5em" }} />
-        <figcaption>Latitude {entry.latitude}</figcaption>
-        <figcaption>Longitude {entry.longitude}</figcaption>
         { entry.notes && <figcaption>Notes {entry.notes}</figcaption> }
       </figure>
-        <Form method="post">
-          <button className="contrast" type="submit">
-            🗑️ Delete
-          </button>
-        </Form>
+
+      <ClientOnly fallback={
+        <div>
+          <p>Latitude {entry.latitude}</p>
+          <p>Longitude {entry.longitude}</p>
+        </div>
+      }>
+        {() => <Map entry={entry} />}
+      </ClientOnly>
+
+
+      <Form method="post">
+        <button className="contrast" type="submit">
+          🗑️ Delete
+        </button>
+      </Form>
     </section>
   );
 }
