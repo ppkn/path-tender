@@ -16,19 +16,10 @@ export const clientLoader = async () => {
 export default function AppLayout() {
   return (
     <>
-      <main
-        style={{
-          flex: 1,
-          overflowY: "scroll",
-        }}
-      >
+      <main className="flex-1 overflow-y-scroll">
         <Outlet />
       </main>
-      <footer
-        style={{
-          flex: 0,
-        }}
-      >
+      <footer className="flex-grow-0">
         <nav>
           <ul>
             <li>

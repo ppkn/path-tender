@@ -9,7 +9,7 @@ import { ClientOnly } from "remix-utils/client-only";
 import invariant from "tiny-invariant";
 import { pb } from "~/pocketbase";
 
-import Map from '~/components/map.client'
+import Map from "~/components/map.client";
 
 export const clientAction = async ({ params }: ClientActionFunctionArgs) => {
   const { id } = params;
@@ -30,27 +30,22 @@ export default function ShowEntry() {
   const photoUrl = pb.files.getUrl(entry, entry.photo);
 
   return (
-    <section
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        rowGap: "1em",
-      }}
-    >
+    <section className="flex flex-col gap-y-4">
       <figure>
-        <img src={photoUrl} alt="" style={{ borderRadius: "0.5em" }} />
-        { entry.notes && <figcaption>Notes {entry.notes}</figcaption> }
+        <img src={photoUrl} alt="" className="rounded-lg" />
+        {entry.notes && <figcaption>Notes {entry.notes}</figcaption>}
       </figure>
 
-      <ClientOnly fallback={
-        <div>
-          <p>Latitude {entry.latitude}</p>
-          <p>Longitude {entry.longitude}</p>
-        </div>
-      }>
+      <ClientOnly
+        fallback={
+          <div>
+            <p>Latitude {entry.latitude}</p>
+            <p>Longitude {entry.longitude}</p>
+          </div>
+        }
+      >
         {() => <Map entry={entry} />}
       </ClientOnly>
-
 
       <Form method="post">
         <button className="contrast" type="submit">

@@ -9,6 +9,8 @@ import {
 } from "@remix-run/react";
 
 import "./index.scss";
+import stylesheet from "./globals.css?url";
+import { LinksFunction } from "@remix-run/node";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -20,13 +22,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <link rel="icon" type="image/svg+xml" href="/compass.svg" />
         <Links />
       </head>
-      <body
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          height: "100dvh",
-        }}
-      >
+      <body className="h-dvh flex flex-col">
         {children}
         <ScrollRestoration />
         <Scripts />
@@ -34,6 +30,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
     </html>
   );
 }
+
+export const links: LinksFunction = () => [
+  { rel: "stylesheet", href: stylesheet },
+];
 
 export default function App() {
   return <Outlet />;

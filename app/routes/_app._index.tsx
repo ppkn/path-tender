@@ -18,29 +18,9 @@ export default function AppIndex() {
       });
       return (
         <Link to={`/entry/${entry.id}`} key={entry.id}>
-          <article
-            style={{
-              display: "flex",
-              alignItems: "center",
-              columnGap: "0.5em",
-            }}
-          >
-            <img
-              src={photoUrl}
-              alt=""
-              style={{
-                borderRadius: "0.5em",
-              }}
-            />
-            <div
-              style={{
-                maxHeight: 100,
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                textDecoration: "none",
-                whiteSpace: "nowrap",
-              }}
-            >
+          <article className="flex items-center gap-x-2">
+            <img className="rounded-lg" src={photoUrl} alt="" />
+            <div className="max-h-28 overflow-hidden text-ellipsis whitespace-nowrap">
               {entry.notes}
             </div>
           </article>
