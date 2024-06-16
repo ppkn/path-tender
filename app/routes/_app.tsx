@@ -1,5 +1,6 @@
 import { type MetaFunction } from "@remix-run/node";
 import { Form, Link, Outlet, redirect } from "@remix-run/react";
+import { Button, buttonVariants } from "~/components/ui/button";
 import { pb } from "~/pocketbase";
 
 export const meta: MetaFunction = () => {
@@ -20,24 +21,34 @@ export default function AppLayout() {
         <Outlet />
       </main>
       <footer className="flex-grow-0">
-        <nav>
-          <ul>
+        <nav className="m-10">
+          <ul className="flex">
             <li>
-              <Link to="/">Home</Link>
+              <Link
+                to="/"
+                className={buttonVariants({ variant: "link", size: "lg" })}
+              >
+                Home
+              </Link>
             </li>
             <li>
-              <Link to="/entry/new">New</Link>
+              <Link
+                to="/entry/new"
+                className={buttonVariants({ variant: "link", size: "lg" })}
+              >
+                New
+              </Link>
             </li>
-          </ul>
-          <ul>
-            <li>
+            <li className="ml-auto">
               {/*
               I would love to put an action in this (_app.tsx) route, but it looks like we can't do
               that with "pathless" routes
               https://github.com/remix-run/remix/discussions/7708#discussioncomment-8162531
               */}
               <Form method="post" action="/logout">
-                <button type="submit">Logout</button>
+                <Button type="submit" size="lg">
+                  Logout
+                </Button>
               </Form>
             </li>
           </ul>

@@ -1,9 +1,10 @@
 import { ClientActionFunctionArgs, Form, redirect } from "@remix-run/react";
 import invariant from "tiny-invariant";
-import { Button } from "~/components/ui/button";
+import { Button, buttonVariants } from "~/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
+import { cn } from "~/lib/utils";
 import { pb } from "~/pocketbase";
 
 export const clientLoader = async () => {
@@ -38,9 +39,11 @@ export default function Login() {
             <Label>
               Password <Input type="password" name="password" id="password" />
             </Label>
-            <Button className="mt-4" type="submit">
-              Login
-            </Button>
+            <input
+              type="submit"
+              value="Login"
+              className={cn([buttonVariants(), "mt-4"])}
+            />
           </Form>
         </CardContent>
       </Card>
