@@ -1,7 +1,13 @@
 import { ClientActionFunctionArgs, Form, redirect } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { Button, buttonVariants } from "~/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { cn } from "~/lib/utils";
@@ -28,24 +34,22 @@ export default function Login() {
   return (
     <div className="mx-auto mt-32">
       <Card className="w-[500px]">
-        <CardHeader>
-          <CardTitle>Path Tender 🌱🚶🚴</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <Form method="post">
+        <Form method="post">
+          <CardHeader>
+            <CardTitle>Path Tender 🌱🚶🚴</CardTitle>
+          </CardHeader>
+          <CardContent>
             <Label>
               Email <Input type="email" name="email" id="email" />
             </Label>
             <Label>
               Password <Input type="password" name="password" id="password" />
             </Label>
-            <input
-              type="submit"
-              value="Login"
-              className={cn([buttonVariants(), "mt-4"])}
-            />
-          </Form>
-        </CardContent>
+          </CardContent>
+          <CardFooter>
+            <input type="submit" value="Login" className={buttonVariants()} />
+          </CardFooter>
+        </Form>
       </Card>
     </div>
   );
