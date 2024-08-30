@@ -13,7 +13,7 @@ export const clientLoader = async () => {
 export default function AppIndex() {
   const { entries } = useLoaderData<typeof clientLoader>();
   return (
-    <div className="p-6 flex flex-col gap-5">
+    <div className="p-6 flex flex-col space-y-5">
       {entries.length ? (
         entries.map((entry) => {
           const photoUrl = pb.files.getUrl(entry, entry.photo, {

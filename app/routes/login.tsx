@@ -39,12 +39,14 @@ export default function Login() {
             <CardTitle>Path Tender 🌱🚶🚴</CardTitle>
           </CardHeader>
           <CardContent>
+            <div>
+              <Label>Email</Label>
+              <Input type="email" name="email" id="email" />
+            </div>
             <Label>
-              Email <Input type="email" name="email" id="email" />
+              Password
             </Label>
-            <Label>
-              Password <Input type="password" name="password" id="password" />
-            </Label>
+            <Input type="password" name="password" id="password" />
           </CardContent>
           <CardFooter>
             <input type="submit" value="Login" className={buttonVariants()} />
