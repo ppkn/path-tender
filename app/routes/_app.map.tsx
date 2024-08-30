@@ -20,9 +20,8 @@ export default function MapRoute() {
         latitude: 40.6076,
         zoom: 16,
       }}
-      mapStyle={`https://api.maptiler.com/maps/7faccc7c-ec4b-408f-a216-4f92dd1ca79b/style.json?key=${
-        import.meta.env.VITE_MAPTILER_KEY
-      }`}
+      mapStyle={`https://api.maptiler.com/maps/7faccc7c-ec4b-408f-a216-4f92dd1ca79b/style.json?key=${import.meta.env.VITE_MAPTILER_KEY
+        }`}
     >
       {entries.map((entry) => (
         <Marker
