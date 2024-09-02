@@ -1,4 +1,5 @@
 import { Link, useLoaderData } from "@remix-run/react";
+import { buttonVariants } from "~/components/ui/button";
 import { pb } from "~/pocketbase";
 
 export const clientLoader = async () => {
@@ -11,23 +12,31 @@ export const clientLoader = async () => {
 
 export default function AppIndex() {
   const { entries } = useLoaderData<typeof clientLoader>();
-  return entries.length ? (
-    entries.map((entry) => {
-      const photoUrl = pb.files.getUrl(entry, entry.photo, {
-        thumb: "100x100",
-      });
-      return (
-        <Link to={`/entry/${entry.id}`} key={entry.id}>
-          <article className="flex items-center gap-x-2">
-            <img className="rounded-lg" src={photoUrl} alt="" />
-            <div className="max-h-28 overflow-hidden text-ellipsis whitespace-nowrap">
-              {entry.notes}
+  return (
+    <div className="p-6 flex flex-col space-y-5">
+      {entries.length ? (
+        entries.map((entry) => {
+          const photoUrl = pb.files.getUrl(entry, entry.photo, {
+            thumb: "100x100",
+          });
+          return (
+            <div key={entry.id} className="p-6 shadow-md rounded-md">
+              <Link to={`/entry/${entry.id}`}>
+                <article className="flex items-center gap-x-2">
+                  <img className="rounded-lg" src={photoUrl} alt="" />
+                  <div className="max-h-28 overflow-hidden text-ellipsis whitespace-nowrap">
+                    {entry.notes}
+                  </div>
+                </article>
+              </Link>
             </div>
-          </article>
+          );
+        })
+      ) : (
+        <Link to={"/entry/new"} className={buttonVariants()}>
+          Create your first entry
         </Link>
-      );
-    })
-  ) : (
-    <Link to={"/entry/new"}>Create your first entry</Link>
+      )}
+    </div>
   );
 }

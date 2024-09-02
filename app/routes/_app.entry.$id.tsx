@@ -10,6 +10,7 @@ import invariant from "tiny-invariant";
 import { pb } from "~/pocketbase";
 
 import Map from "~/components/map.client";
+import { Button } from "~/components/ui/button";
 
 export const clientAction = async ({ params }: ClientActionFunctionArgs) => {
   const { id } = params;
@@ -30,7 +31,7 @@ export default function ShowEntry() {
   const photoUrl = pb.files.getUrl(entry, entry.photo);
 
   return (
-    <section className="flex flex-col gap-y-4">
+    <section className="p-6 flex flex-col gap-y-4">
       <figure>
         <img src={photoUrl} alt="" className="rounded-lg" />
         {entry.notes && <figcaption>Notes {entry.notes}</figcaption>}
@@ -48,9 +49,9 @@ export default function ShowEntry() {
       </ClientOnly>
 
       <Form method="post">
-        <button className="contrast" type="submit">
+        <Button variant="destructive-outline" type="submit">
           🗑️ Delete
-        </button>
+        </Button>
       </Form>
     </section>
   );

@@ -8,7 +8,6 @@ import {
   isRouteErrorResponse,
 } from "@remix-run/react";
 
-import "./index.scss";
 import stylesheet from "./globals.css?url";
 import { LinksFunction } from "@remix-run/node";
 

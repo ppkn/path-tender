@@ -1,5 +1,15 @@
 import { ClientActionFunctionArgs, Form, redirect } from "@remix-run/react";
 import invariant from "tiny-invariant";
+import { buttonVariants } from "~/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "~/components/ui/card";
+import { Input } from "~/components/ui/input";
+import { Label } from "~/components/ui/label";
 import { pb } from "~/pocketbase";
 
 export const clientLoader = async () => {
@@ -21,23 +31,27 @@ export const clientAction = async ({ request }: ClientActionFunctionArgs) => {
 
 export default function Login() {
   return (
-    <>
-      <header>
-        <h1>Path Tender 🌱🚶🚴</h1>
-      </header>
-      <main>
-        <article>
-          <Form method="post">
-            <label>
-              Email <input type="email" name="email" id="email" />
-            </label>
-            <label>
-              Password <input type="password" name="password" id="password" />
-            </label>
-            <input type="submit" value="Login" />
-          </Form>
-        </article>
-      </main>
-    </>
+    <div className="mt-32 p-5">
+      <Card className="w-full">
+        <Form method="post">
+          <CardHeader>
+            <CardTitle>Path Tender 🌱🚶🚴</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div>
+              <Label>Email</Label>
+              <Input type="email" name="email" id="email" />
+            </div>
+            <Label>
+              Password
+            </Label>
+            <Input type="password" name="password" id="password" />
+          </CardContent>
+          <CardFooter>
+            <input type="submit" value="Login" className={buttonVariants()} />
+          </CardFooter>
+        </Form>
+      </Card>
+    </div>
   );
 }
