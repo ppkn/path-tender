@@ -5,7 +5,6 @@ import {
   redirect,
   useLoaderData,
 } from "@remix-run/react";
-import { ClientOnly } from "remix-utils/client-only";
 import invariant from "tiny-invariant";
 import { pb } from "~/pocketbase";
 
@@ -37,17 +36,7 @@ export default function ShowEntry() {
         {entry.notes && <figcaption>Notes {entry.notes}</figcaption>}
       </figure>
 
-      <ClientOnly
-        fallback={
-          <div>
-            <p>Latitude {entry.latitude}</p>
-            <p>Longitude {entry.longitude}</p>
-          </div>
-        }
-      >
-        {() => <Map entry={entry} />}
-      </ClientOnly>
-
+      <Map entry={entry} />
       <Form method="post">
         <Button variant="destructive-outline" type="submit">
           🗑️ Delete

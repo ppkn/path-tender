@@ -1,22 +1,24 @@
-import { Marker, MapContainer, Popup, TileLayer } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
-import "~/styles/map.scss";
+import { Map, Marker } from "react-map-gl/maplibre";
+import "maplibre-gl/dist/maplibre-gl.css";
+import { EntriesResponse } from "pocketbase-types";
 
-export default function Component({ entry }) {
+export default function Component({ entry }: { entry: EntriesResponse }) {
   return (
-    <MapContainer
-      className="h-[500px] w-[500px]"
-      center={[entry.latitude, entry.longitude]}
-      zoom={13}
-      scrollWheelZoom={false}
+    <Map
+      initialViewState={{
+        longitude: -111.8861,
+        latitude: 40.6076,
+        zoom: 16,
+      }}
+      mapStyle={`https://api.maptiler.com/maps/7faccc7c-ec4b-408f-a216-4f92dd1ca79b/style.json?key=${import.meta.env.VITE_MAPTILER_KEY}`}
+      style={{ height: 350 }}
     >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      <Marker
+        key={entry.id}
+        latitude={entry.latitude}
+        longitude={entry.longitude}
       />
-      <Marker position={[entry.latitude, entry.longitude]}>
-        {entry.notes && <Popup>{entry.notes}</Popup>}
-      </Marker>
-    </MapContainer>
-  );
+    </Map>
+  )
 }
+
